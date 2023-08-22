@@ -18,4 +18,4 @@ Route::get('/', function () {
 	return view('welcome');
 })->name('index');
 
-Route::get('/places', [PlaceController::class, 'index'])->name('places.index');
+Route::resource('places', PlaceController::class);

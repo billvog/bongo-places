@@ -34,7 +34,9 @@ class PlaceController extends Controller {
 	 * Display the specified resource.
 	 */
 	public function show(Place $place) {
-		//
+		return view('places.show', [
+			'place' => $place
+		]);
 	}
 
 	/**
