@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder {
 		// \App\Models\User::factory(10)->create();
 
 		$this->call([
-			PlaceSeeder::class
+			PlaceSeeder::class,
+			ReviewSeeder::class
 		]);
 	}
 }
