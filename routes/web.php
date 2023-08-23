@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,5 @@ Route::get('/', function () {
 })->name('index');
 
 Route::resource('places', PlaceController::class);
+
+Route::resource('places.reviews', ReviewController::class);

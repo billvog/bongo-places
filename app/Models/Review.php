@@ -11,6 +11,11 @@ class Review extends Model {
 	use HasFactory;
 	use HasUuids;
 
+	protected $fillable = [
+		'review_text',
+		'rating'
+	];
+
 	protected $casts = [
 		'rating' => 'float'
 	];

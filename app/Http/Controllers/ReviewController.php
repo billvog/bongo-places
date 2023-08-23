@@ -4,63 +4,77 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Models\Place;
 use App\Models\Review;
+use App\Models\User;
 
-class ReviewController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+class ReviewController extends Controller {
+	/**
+	 * Display a listing of the resource.
+	 */
+	public function index(Place $place) {
+		return view('places.reviews.index', [
+			'place' => $place,
+			'reviews' => $place->reviews
+		]);
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+	/**
+	 * Show the form for creating a new resource.
+	 */
+	public function create(Place $place) {
+		return view('places.reviews.create', [
+			'place' => $place
+		]);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreReviewRequest $request)
-    {
-        //
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 */
+	public function store(Place $place, StoreReviewRequest $request) {
+		$review = new Review(
+			$request->all(['review_text', 'rating'])
+		);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Review $review)
-    {
-        //
-    }
+		$firstUser = User::all()[0];
+		$review->reviewer_id = $firstUser->id;
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Review $review)
-    {
-        //
-    }
+		$place->reviews()->save($review);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateReviewRequest $request, Review $review)
-    {
-        //
-    }
+		return redirect()->action([ReviewController::class, 'show'], [
+			'place' => $place,
+			'review' => $review
+		]);
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Review $review)
-    {
-        //
-    }
+	/**
+	 * Display the specified resource.
+	 */
+	public function show(Place $place, Review $review) {
+		return view('places.reviews.show', [
+			'place' => $place,
+			'review' => $review
+		]);
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 */
+	public function edit(Review $review) {
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 */
+	public function update(UpdateReviewRequest $request, Review $review) {
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 */
+	public function destroy(Review $review) {
+		//
+	}
 }
