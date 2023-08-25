@@ -35,7 +35,7 @@ Route::name('auth.')->prefix('/auth')->group(function () {
 		Auth::logout();
 		return redirect()->route('index');
 	})
-		->middleware('authenticated')
+		->middleware('auth')
 		->name('logout');
 
 	Route::name('google.')->prefix('/google')->group(function () {

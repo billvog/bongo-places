@@ -7,6 +7,10 @@ use App\Http\Requests\UpdatePlaceRequest;
 use App\Models\Place;
 
 class PlaceController extends Controller {
+	public function __construct() {
+		$this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 */
