@@ -21,6 +21,12 @@
   </header>
 
   <main class="max-w-xl w-full mx-auto py-8 space-y-6">
+    @if (Session::has('notice'))
+      <div class="text-red-500 font-bold text-lg">
+        {{ Session::get('notice') }}
+      </div>
+    @endif
+
     @yield('content')
   </main>
 

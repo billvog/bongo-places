@@ -2,15 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use Closure;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 use App\Models\Place;
 use App\Models\Review;
-use App\Models\User;
 
 class ReviewController extends Controller {
 	public function __construct() {
 		$this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
+
+		// Ensure user hasn't already reviewed the place.
+		$this->middleware(function (Request $request, Closure $next) {
+			$place = $request->route('place');
+			if (
+				$place &&
+				Review::where([
+					'reviewable_type' => get_class($place),
+					'reviewable_id' => $place->id,
+					'reviewer_id' => auth()->user()->id
+				])->exists()
+			) {
+				return redirect()
+					->action([PlaceController::class, 'show'], ['place' => $place])
+					->with('notice', 'You have already reviewed this place.');
+			}
+
+			return $next($request);
+		})->only(['create', 'store']);
 	}
 
 	/**
