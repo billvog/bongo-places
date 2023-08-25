@@ -36,8 +36,7 @@ class ReviewController extends Controller {
 			$request->all(['review_text', 'rating'])
 		);
 
-		$firstUser = User::all()[0];
-		$review->reviewer_id = $firstUser->id;
+		$review->reviewer_id = auth()->user()->id;
 
 		$place->reviews()->save($review);
 
