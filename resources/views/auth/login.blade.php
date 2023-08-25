@@ -5,7 +5,14 @@
     Login
   </h1>
 
+  <div>We only allow login with trusty Third-Parties.</div>
+
   <div>
-    <a href="{{ route('auth.google.redirect') }}">Login with Google</a>
+    <div>
+      <a href="{{ route('auth.google.redirect') }}" class="flex w-fit space-x-2">
+        <img src="{{ asset('storage/oath-providers/google.svg') }}" alt="Google Logo">
+        <span>Sign in with Google</span>
+      </a>
+    </div>
   </div>
 @endsection

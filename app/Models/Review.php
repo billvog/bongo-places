@@ -23,4 +23,8 @@ class Review extends Model {
 	public function reviewable(): MorphTo {
 		return $this->morphTo();
 	}
+
+	public function reviewer() {
+		return $this->belongsTo(User::class);
+	}
 }

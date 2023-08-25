@@ -2,9 +2,44 @@
 
 @section('content')
   <div>
-    <x-place class="pb-4" :place="$place" />
-    <a href="{{ route('places.reviews.index', $place) }}">
-      View reviews.
-    </a>
+    <h2>
+      {{ $place->name }}
+    </h2>
+    <p>
+      {{ $place->description }}
+    </p>
+  </div>
+  <hr>
+  <div>
+    @if ($place->total_reviews_count === 0)
+      <div class="space-y-2">
+        <div>No reviews yet.</div>
+        @auth
+          <div class="text-right ml-auto w-[300px]">
+            Been there? Share you experience, and
+            <a href="{{ route('places.reviews.create', $place) }}">be the first to leave a review</a>.
+          </div>
+        @endauth
+      </div>
+    @else
+      <div class="flex items-center space-x-4">
+        <div class="text-4xl font-bold">
+          <span class="text-yellow-400">★</span> {{ number_format($place->average_rating, 1) }} / 5.0
+        </div>
+        <div class="text-zinc-500 font-medium">
+          ({{ $place->total_reviews_count }} people reviewed)
+        </div>
+      </div>
+      <div class="mt-8 space-y-4">
+        @auth
+          <div>
+            Been there? <a href="{{ route('places.reviews.create', $place) }}">Leave a review</a>.
+          </div>
+        @endauth
+        @foreach ($place->reviews as $review)
+          <x-review :review="$review" />
+        @endforeach
+      </div>
+    @endif
   </div>
 @endsection

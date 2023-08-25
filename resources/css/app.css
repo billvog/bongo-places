@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+	a, button, div {
+		@apply underline-offset-4;
+	}
+
 	h1 {
 		@apply text-4xl font-bold;
 	}
@@ -13,5 +17,14 @@
 
 	a {
 		@apply font-bold underline-offset-4 hover:underline;
+	}
+
+	button {
+		background-color: rgb(244, 164, 15) !important;
+		@apply 
+			px-6 py-2 rounded-xl 
+			text-white font-bold 
+			hover:underline underline-offset-4 
+			focus:ring-2 ring-offset-4;
 	}
 }

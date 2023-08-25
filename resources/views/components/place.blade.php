@@ -4,8 +4,12 @@
   <div class="text-lg font-bold">
     <a href="{{ route('places.show', $place) }}">{{ $place->name }}</a>
   </div>
-  <div class="text-sm text-gray-600">{{ Str::limit($place->description, 100, '...') }}</div>
-  <div class="font-medium">
-    {{ $place->location }}
+  <div>
+    @if ($place->total_reviews_count === 0)
+      No reviews yet.
+    @else
+      <span class="text-yellow-400">★</span> {{ number_format($place->average_rating, 1) }}
+      <span>({{ $place->total_reviews_count }})</span>
+    @endif
   </div>
 </div>
