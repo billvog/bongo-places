@@ -27,6 +27,6 @@ class GoogleLoginController extends Controller {
 
 		Auth::login($user, true);
 
-		return redirect('/dashboard');
+		return redirect()->route('index');
 	}
 }
