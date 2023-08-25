@@ -23,7 +23,8 @@ Route::get('/', function () {
 
 Route::resource('places', PlaceController::class);
 
-Route::resource('places.reviews', ReviewController::class);
+Route::resource('places.reviews', ReviewController::class)
+	->except(['show']);
 
 // Socialite Authentcation
 Route::name('auth.')->prefix('/auth')->group(function () {

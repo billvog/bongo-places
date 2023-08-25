@@ -51,16 +51,6 @@ class ReviewController extends Controller {
 	}
 
 	/**
-	 * Display the specified resource.
-	 */
-	public function show(Place $place, Review $review) {
-		return view('places.reviews.show', [
-			'place' => $place,
-			'review' => $review
-		]);
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 */
 	public function edit(Review $review) {
