@@ -31,11 +31,11 @@
         </div>
       </div>
       <div class="mt-8 space-y-4">
-        @auth
+        @if (Auth::check() && !$place->haveReviewed())
           <div>
             Been there? <a href="{{ route('places.reviews.create', $place) }}">Leave a review</a>.
           </div>
-        @endauth
+        @endif
         @foreach ($place->reviews as $review)
           <x-review :review="$review" />
         @endforeach
