@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PlaceStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,9 +16,21 @@ class Place extends Model {
 	use HasUuids;
 	use HasSpatial;
 
-	protected $casts = [
-		'coordinates' => Point::class
+	protected $fillable = [
+		'name',
+		'description',
+		'location',
+		'coordinates',
 	];
+
+	protected $casts = [
+		'coordinates' => Point::class,
+		'status' => PlaceStatus::class,
+	];
+
+	public function owner() {
+		return $this->belongsTo(User::class);
+	}
 
 	public function reviews(): MorphMany {
 		return $this->morphMany(Review::class, 'reviewable');

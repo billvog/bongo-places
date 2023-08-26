@@ -50,6 +50,10 @@ class User extends Authenticatable {
 		'password' => 'hashed',
 	];
 
+	public function places() {
+		return $this->hasMany(Place::class);
+	}
+
 	public function reviews() {
 		return $this->hasMany(Review::class);
 	}

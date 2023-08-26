@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePlaceRequest;
 use App\Http\Requests\UpdatePlaceRequest;
 use App\Models\Place;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 class PlaceController extends Controller {
 	public function __construct() {
@@ -23,15 +26,34 @@ class PlaceController extends Controller {
 	/**
 	 * Show the form for creating a new resource.
 	 */
-	public function create() {
-		//
+	public function create(Request $request) {
+		$step = $request->query('step', 1);
+		switch ($step) {
+			case 2:
+				return view('places.create-steps.two');
+			default:
+				return view('places.create-steps.one');
+		}
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 */
 	public function store(StorePlaceRequest $request) {
-		//
+		$data = $request->validated();
+
+		// Convert coordinates to Point class that Eloquent understands.
+		$data['coordinates'] = new Point(
+			$data['coordinates']['latitude'],
+			$data['coordinates']['longitude']
+		);
+
+		$place = new Place($data);
+		$place->owner_id = Auth::user()->id;
+
+		$place->save();
+
+		return redirect()->action([PlaceController::class, 'show'], ['place' => $place]);
 	}
 
 	/**
