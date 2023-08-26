@@ -64,9 +64,8 @@ class ReviewController extends Controller {
 
 		$place->reviews()->save($review);
 
-		return redirect()->action([ReviewController::class, 'show'], [
-			'place' => $place,
-			'review' => $review
+		return redirect()->action([PlaceController::class, 'show'], [
+			'place' => $place
 		]);
 	}
 

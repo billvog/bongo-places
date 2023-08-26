@@ -47,7 +47,7 @@ class PlaceController extends Controller {
 
 		$place->save();
 
-		return redirect()->action([PlaceController::class, 'show'], ['place' => $place]);
+		return redirect()->action([PlacePhotosController::class, 'create'], ['place' => $place]);
 	}
 
 	/**
