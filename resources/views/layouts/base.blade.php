@@ -30,6 +30,7 @@
     @yield('content')
   </main>
 
+  @stack('javascripts')
 </body>
 
 </html>

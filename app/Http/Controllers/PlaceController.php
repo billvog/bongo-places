@@ -26,14 +26,8 @@ class PlaceController extends Controller {
 	/**
 	 * Show the form for creating a new resource.
 	 */
-	public function create(Request $request) {
-		$step = $request->query('step', 1);
-		switch ($step) {
-			case 2:
-				return view('places.create-steps.two');
-			default:
-				return view('places.create-steps.one');
-		}
+	public function create() {
+		return view('places.create-steps.one');
 	}
 
 	/**

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleLoginController;
+use App\Http\Controllers\FilepondUploaderController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\PlacePhotosController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +23,11 @@ Route::get('/', function () {
 	return view('welcome');
 })->name('index');
 
+Route::post('/filepond', [FilepondUploaderController::class, 'process'])->name('filepond-server');
+Route::delete('/filepond', [FilepondUploaderController::class, 'revert'])->name('filepond-server');
+
 Route::resource('places', PlaceController::class);
+Route::resource('places.photos', PlacePhotosController::class)->only('create', 'store');
 
 Route::resource('places.reviews', ReviewController::class)
 	->except(['show']);

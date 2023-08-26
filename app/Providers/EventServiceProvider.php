@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use App\Models\Review;
+use App\Models\TemporaryFile;
 use App\Observers\ReviewObserver;
+use App\Observers\TemporaryFileObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider {
 	/**
@@ -27,6 +28,7 @@ class EventServiceProvider extends ServiceProvider {
 	public function boot(): void {
 		// Register the ReviewObserver to update average rating of the reviewable parent.
 		Review::observe(ReviewObserver::class);
+		TemporaryFile::observe(TemporaryFileObserver::class);
 	}
 
 	/**
