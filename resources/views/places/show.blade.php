@@ -2,6 +2,11 @@
 
 @section('content')
   <div>
+    <div class="mb-4">
+      @foreach ($place->medially as $image)
+        <img src="{{ $image->file_url }}" alt="Image of {{ $place->name }}" class="w-full h-[400px] object-cover">
+      @endforeach
+    </div>
     <h2>
       {{ $place->name }}
     </h2>

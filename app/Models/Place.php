@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PlaceStatus;
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,7 @@ class Place extends Model {
 	use HasFactory;
 	use HasUuids;
 	use HasSpatial;
+	use MediaAlly;
 
 	protected $fillable = [
 		'name',

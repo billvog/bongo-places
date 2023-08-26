@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Place;
 use App\Models\TemporaryFile;
 use Illuminate\Http\Request;
+use SplFileInfo;
 
 class PlacePhotosController extends Controller {
 	public function create(Place $place) {
@@ -13,12 +14,29 @@ class PlacePhotosController extends Controller {
 		]);
 	}
 
-	public function store(Request $request) {
+	public function store(Place $place, Request $request) {
+		// Filepond puts here an array of uuids
+		// that are the ids of TemporaryFiles
 		$files = $request->get('file');
+
+		// Find all temporary files for this request.
 		$temporaryFiles = TemporaryFile::query()->findMany($files);
 
-		dd($temporaryFiles);
+		foreach ($temporaryFiles as $tempFile) {
+			// Cloudinary MediaAlly attachMedia function 
+			// expects a subclass of SplFileInfo (I guess)
+			// so, we need to create an instance of SplFileInfo
+			// from the path of our temporary file.
+			$fileInfo = new SplFileInfo($tempFile->getStoragePath());
 
-		// TODO: upload files to cloudinary.
+			// Uploads file to cloudinary and 
+			// creates a bond with the place models.
+			$place->attachMedia($fileInfo);
+		}
+
+		// Remove temporary files.
+		TemporaryFile::destroy($files);
+
+		return redirect()->action([PlaceController::class, 'show'], ['place' => $place]);
 	}
 }
