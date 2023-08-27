@@ -10,22 +10,10 @@
   </div>
 
   <x-form :action="route('places.photos.store', $place)" method="post" enctype="multipart/form-data">
-    <input type="file" name="file[]" class="filepond" required />
+    <x-filepond-input />
     <div class="pt-4 space-x-4">
       <button type="submit">Next</button>
       <a href="{{ route('places.show', $place) }}" class="text-zinc-400">Skip for now</a>
     </div>
   </x-form>
 @endsection
-
-@push('javascripts')
-  @vite('resources/js/filepond.js')
-  <script type="module">
-    filepond.server = {
-      url: "{{ route('filepond-server') }}",
-      headers: {
-        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-      }
-    }
-  </script>
-@endpush

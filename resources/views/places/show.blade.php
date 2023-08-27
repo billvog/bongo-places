@@ -1,6 +1,12 @@
 @extends('layouts.base')
 
 @section('content')
+  @if (Auth::check() && Auth::user()->id == $place->owner_id)
+    <div class="w-fit ml-auto space-x-4">
+      <a href="{{ route('places.edit', $place) }}">Edit</a>
+    </div>
+  @endif
+
   <div>
     <div class="mb-4">
       @foreach ($place->medially as $image)

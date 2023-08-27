@@ -23,6 +23,7 @@ class Place extends Model {
 		'description',
 		'location',
 		'coordinates',
+		'status'
 	];
 
 	protected $casts = [

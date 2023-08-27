@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PlaceStatus;
 use App\Http\Requests\StorePlaceRequest;
 use App\Http\Requests\UpdatePlaceRequest;
 use App\Models\Place;
@@ -44,6 +45,7 @@ class PlaceController extends Controller {
 
 		$place = new Place($data);
 		$place->owner_id = Auth::user()->id;
+		$place->status = PlaceStatus::Draft;
 
 		$place->save();
 
@@ -63,14 +65,26 @@ class PlaceController extends Controller {
 	 * Show the form for editing the specified resource.
 	 */
 	public function edit(Place $place) {
-		//
+		return view('places.edit', [
+			'place' => $place
+		]);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 */
 	public function update(UpdatePlaceRequest $request, Place $place) {
-		//
+		$data = $request->validated();
+
+		// Convert coordinates to Point class that Eloquent understands.
+		$data['coordinates'] = new Point(
+			$data['coordinates']['latitude'],
+			$data['coordinates']['longitude']
+		);
+
+		$place->update($data);
+
+		return redirect()->action([PlaceController::class, 'show'], ['place' => $place]);
 	}
 
 	/**
