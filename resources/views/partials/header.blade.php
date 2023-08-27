@@ -8,7 +8,7 @@
       @auth
         <div class="flex flex-col items-end">
           <div>
-            <a href="" class="text-base">{{ Auth::user()->name }}</a>
+            <a href="{{ route('my-places.index') }}" class="text-base">{{ Auth::user()->name }}</a>
           </div>
           <form action="{{ route('auth.logout') }}" method="POST">
             @csrf

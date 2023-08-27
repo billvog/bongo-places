@@ -51,7 +51,7 @@ class User extends Authenticatable {
 	];
 
 	public function places() {
-		return $this->hasMany(Place::class);
+		return $this->hasMany(Place::class, 'owner_id');
 	}
 
 	public function reviews() {

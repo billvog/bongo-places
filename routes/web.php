@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\FilepondUploaderController;
+use App\Http\Controllers\MyPlacesController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PlacePhotosController;
 use App\Http\Controllers\ReviewController;
@@ -25,6 +26,8 @@ Route::get('/', function () {
 
 Route::post('/filepond', [FilepondUploaderController::class, 'process'])->name('filepond-server');
 Route::delete('/filepond', [FilepondUploaderController::class, 'revert'])->name('filepond-server');
+
+Route::get('/my/places', [MyPlacesController::class, 'index'])->name('my-places.index');
 
 Route::resource('places', PlaceController::class);
 Route::resource('places.photos', PlacePhotosController::class)->only('create', 'store');
