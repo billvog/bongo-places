@@ -3,5 +3,7 @@
 [x] Create review model and controller
 [x] Create avg_rating and total_reviews column in **Review** model and update them with a signal when a review is created.
 [ ] Create a helpful_count column in the **Review** model and create a table that tracks which found which review helpful and update the count accordingly.
-[ ] Upload images (multiple) for places and store them with Cloudinary.
+[x] Upload images (multiple) for places and store them with Cloudinary.
 [x] Organize UI better
+[ ] Place edit action in controller
+[ ] Place Photos edit action in controller
