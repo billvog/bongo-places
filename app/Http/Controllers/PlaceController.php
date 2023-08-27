@@ -20,7 +20,7 @@ class PlaceController extends Controller {
 	 */
 	public function index() {
 		return view('places.index', [
-			'places' => Place::all()
+			'places' => Place::query()->where('status', PlaceStatus::Published->value)->get()
 		]);
 	}
 
