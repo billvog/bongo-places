@@ -6,4 +6,5 @@
 [x] Upload images (multiple) for places and store them with Cloudinary.
 [x] Organize UI better
 [x] Place edit action in controller
-[ ] Place Photos edit action in controller
+[x] Place Photos edit action in controller
+[ ] Rewrite the blade view @ places/photos/edit with Vue to also handle delete and upload of images.

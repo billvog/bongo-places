@@ -30,7 +30,10 @@ Route::delete('/filepond', [FilepondUploaderController::class, 'revert'])->name(
 Route::get('/my/places', [MyPlacesController::class, 'index'])->name('my-places.index');
 
 Route::resource('places', PlaceController::class);
+
 Route::resource('places.photos', PlacePhotosController::class)->only('create', 'store');
+Route::patch('/api/places/{place}/photos', [PlacePhotosController::class, 'update'])->name('places.photos.update');
+Route::get('/places/{place}/photos/edit', [PlacePhotosController::class, 'edit'])->name('places.photos.edit');
 
 Route::resource('places.reviews', ReviewController::class)
 	->except(['show']);

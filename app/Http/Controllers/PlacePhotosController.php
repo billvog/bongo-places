@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdatePlacePhotosRequest;
 use App\Models\Place;
 use App\Models\TemporaryFile;
 use Illuminate\Http\Request;
-use SplFileInfo;
 
 class PlacePhotosController extends Controller {
 	public function create(Place $place) {
@@ -22,21 +22,37 @@ class PlacePhotosController extends Controller {
 		// Find all temporary files for this request.
 		$temporaryFiles = TemporaryFile::query()->findMany($files);
 
-		foreach ($temporaryFiles as $tempFile) {
-			// Cloudinary MediaAlly attachMedia function 
-			// expects a subclass of SplFileInfo (I guess)
-			// so, we need to create an instance of SplFileInfo
-			// from the path of our temporary file.
-			$fileInfo = new SplFileInfo($tempFile->getStoragePath());
+		$currentOrder = 0;
 
+		foreach ($temporaryFiles as $tempFile) {
 			// Uploads file to cloudinary and 
 			// creates a bond with the place models.
-			$place->attachMedia($fileInfo);
+			$place->attachRemoteMedia($tempFile->getStoragePath(), $currentOrder);
+
+			$currentOrder++;
 		}
 
 		// Remove temporary files.
 		TemporaryFile::destroy($files);
 
 		return redirect()->action([PlaceController::class, 'show'], ['place' => $place]);
+	}
+
+	public function edit(Place $place) {
+		return view('places.photos.edit', [
+			'place' => $place
+		]);
+	}
+
+	public function update(UpdatePlacePhotosRequest $request, Place $place) {
+		$images = $request->get('images', []);
+
+		foreach ($images as $image) {
+			$media = $place->medially()->find($image['id']);
+			$media->order = $image['order'];
+			$media->update();
+		}
+
+		return response()->noContent(200);
 	}
 }
