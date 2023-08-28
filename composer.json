@@ -4,9 +4,15 @@
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/billvog/cloudinary-laravel"
+        }
+    ],
     "require": {
         "php": "^8.1",
-        "cloudinary-labs/cloudinary-laravel": "^2.0",
+        "cloudinary-labs/cloudinary-laravel": "dev-media-ordering",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
