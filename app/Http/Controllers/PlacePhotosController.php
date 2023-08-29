@@ -24,6 +24,13 @@ class PlacePhotosController extends Controller {
 
 		$currentOrder = 0;
 
+		// If Place has media already attached to it, 
+		// start counting $currentOrder from the $order 
+		// of the last media.
+		if ($place->medially->count() > 0) {
+			$currentOrder = $place->medially->last()->order;
+		}
+
 		foreach ($temporaryFiles as $tempFile) {
 			// Uploads file to cloudinary and 
 			// creates a bond with the place models.
