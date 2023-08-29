@@ -36,10 +36,11 @@
     @else
       <div class="flex items-center space-x-4">
         <div class="text-4xl font-bold">
-          <span class="text-yellow-400">★</span> {{ number_format($place->average_rating, 1) }} / 5.0
+          <span class="text-yellow-400">★</span> {{ number_format($place->average_rating, 1) }} <span
+            class="text-yellow-400">/ 5</span>
         </div>
-        <div class="text-zinc-500 font-medium">
-          ({{ $place->total_reviews_count }} people reviewed)
+        <div class="text-zinc-400 font-medium">
+          ({{ $place->total_reviews_count }} reviews)
         </div>
       </div>
       <div class="mt-8 space-y-4">

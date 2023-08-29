@@ -28,7 +28,7 @@ class PlaceController extends Controller {
 	 * Show the form for creating a new resource.
 	 */
 	public function create() {
-		return view('places.create-steps.one');
+		return view('places.create');
 	}
 
 	/**

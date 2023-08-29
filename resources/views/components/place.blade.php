@@ -1,8 +1,8 @@
 @props(['place'])
 
-<div {{ $attributes->merge(['class' => 'bg-orange-50 rounded-xl']) }}>
-  <div>
-    <img src="{{ $place->medially->first()->file_url }}" class="rounded-t-xl">
+<div {{ $attributes->merge(['class' => 'flex flex-col bg-orange-50 rounded-xl']) }}>
+  <div class="flex-1">
+    <img src="{{ $place->medially->first()?->file_url ?? null }}" class="rounded-t-xl h-full bg-black">
   </div>
   <div class="px-4 py-3">
     <div class="text-base font-bold">
