@@ -26,6 +26,7 @@ class UpdatePlacePhotosRequest extends FormRequest {
 			'images' => 'required|array',
 			'images.*.id' => 'required|integer',
 			'images.*.order' => 'required|integer',
+			'images.*.deleted' => 'boolean|nullable',
 		];
 	}
 

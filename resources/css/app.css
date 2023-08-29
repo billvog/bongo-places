@@ -19,12 +19,61 @@
 		@apply font-bold underline-offset-4 hover:underline;
 	}
 
+	/*
+	============================================
+	 Button
+	============================================
+	*/
+
 	button {
 		background-color: rgb(244, 164, 15) !important;
 		@apply 
+			relative
 			px-6 py-2 rounded-xl 
 			text-white font-bold 
 			hover:underline underline-offset-4 
-			focus:ring-2 ring-offset-4;
+			focus:ring-2 focus:ring-offset-4
+			disabled:opacity-80 disabled:hover:opacity-80 disabled:cursor-not-allowed;
+	}
+
+	button.danger {
+		background-color: rgb(220, 38, 38) !important;
+	}
+
+	button.loading {
+		color: transparent;
+	}
+
+	button.loading::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 12px;
+		height: 12px;
+		border-radius: 100%;
+		background: transparent;
+		border: 2px solid white;
+		border-top-color: transparent;
+		border-right-color: transparent;
+		animation: spinner 1s linear infinite;
+	}
+}
+
+/*
+============================================
+ Animations
+============================================
+*/
+
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

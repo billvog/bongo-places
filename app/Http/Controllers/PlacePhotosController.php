@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class PlacePhotosController extends Controller {
 	public function create(Place $place) {
-		return view('places.create-steps.two', [
+		return view('places.photos.create', [
 			'place' => $place
 		]);
 	}
@@ -35,7 +35,7 @@ class PlacePhotosController extends Controller {
 		// Remove temporary files.
 		TemporaryFile::destroy($files);
 
-		return redirect()->action([PlaceController::class, 'show'], ['place' => $place]);
+		return redirect()->action([PlacePhotosController::class, 'edit'], ['place' => $place]);
 	}
 
 	public function edit(Place $place) {
@@ -45,10 +45,16 @@ class PlacePhotosController extends Controller {
 	}
 
 	public function update(UpdatePlacePhotosRequest $request, Place $place) {
-		$images = $request->get('images', []);
+		$images = $request->validated('images');
 
 		foreach ($images as $image) {
 			$media = $place->medially()->find($image['id']);
+
+			if (array_key_exists('deleted', $image) && $image['deleted'] == true) {
+				$place->detachMedia($media);
+				continue;
+			}
+
 			$media->order = $image['order'];
 			$media->update();
 		}

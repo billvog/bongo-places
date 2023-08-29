@@ -8,18 +8,18 @@ import "filepond/dist/filepond.min.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 
 FilePond.registerPlugin(
-    FilePondPluginImagePreview,
-    FilePondPluginImageTransform,
-    FilePondPluginFileValidateType
+  FilePondPluginImagePreview,
+  FilePondPluginImageTransform,
+  FilePondPluginFileValidateType
 );
 
 const fileInput = document.querySelector('input[type="file"].filepond');
 const filepond = FilePond.create(fileInput, {
-    allowMultiple: true,
-    allowReorder: true,
-    acceptedFileTypes: ["image/*"],
-    imageResizeTargetWidth: 600,
-    imageCropAspectRatio: 1,
+  allowMultiple: true,
+  allowReorder: true,
+  acceptedFileTypes: ["image/*"],
+  imageResizeTargetWidth: 600,
+  imageCropAspectRatio: 1,
 });
 
 window.filepond = filepond;
