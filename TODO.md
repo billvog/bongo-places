@@ -7,4 +7,4 @@
 [x] Organize UI better
 [x] Place edit action in controller
 [x] Place Photos edit action in controller
-[ ] Rewrite the blade view @ places/photos/edit with Vue to also handle delete and upload of images.
+[x] Rewrite the blade view @ places/photos/edit with Vue to also handle delete and upload of images.
