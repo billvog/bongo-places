@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       images: this.photos,
-      activeImagesNum: this.photos.length,
+      activePhotosNum: this.photos.length,
       isLoading: false,
     };
   },
@@ -45,7 +45,7 @@ export default {
     handleDeletePressed(photoId) {
       this.images = this.images.map((photo) => {
         if (photo.id === photoId) {
-          this.activeImagesNum--;
+          this.activePhotosNum--;
           return { ...photo, deleted: true };
         } else {
           return photo;
@@ -82,7 +82,6 @@ export default {
 <template>
   <div class="space-y-8">
     <draggable
-      v-if="activeImagesNum > 0"
       v-model="images"
       group="place-photos"
       item-key="id"
@@ -111,15 +110,21 @@ export default {
           class="hover:no-underline"
         >
           <div
-            class="bg-orange-200 bg-opacity-50 hover:bg-opacity-70 text-orange-600 text-2xl font-normal flex justify-center items-center w-auto h-full aspect-square"
+            class="bg-orange-200 bg-opacity-50 hover:bg-opacity-70 text-orange-600 text-2xl font-normal flex justify-center items-center w-auto h-full min-h-[100px] aspect-square"
           >
             +
           </div>
         </a>
       </template>
     </draggable>
-    <div v-else-if="activeImagesNum <= 0" class="font-bold text-xl">
-      There are no images attached to this place.
+    <div v-if="activePhotosNum <= 0">
+      <span class="font-bold text-xl">
+        There are no photos attached to this place.
+      </span>
+      <br />
+      <span class="text-zinc-400 font-medium">
+        Start adding photos by clicking the "+" button.
+      </span>
     </div>
     <div>
       <button
