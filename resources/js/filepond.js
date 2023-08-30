@@ -13,13 +13,4 @@ FilePond.registerPlugin(
   FilePondPluginFileValidateType
 );
 
-const fileInput = document.querySelector('input[type="file"].filepond');
-const filepond = FilePond.create(fileInput, {
-  allowMultiple: true,
-  allowReorder: true,
-  acceptedFileTypes: ["image/*"],
-  imageResizeTargetWidth: 600,
-  imageCropAspectRatio: 1,
-});
-
-window.filepond = filepond;
+window.filepond = FilePond;

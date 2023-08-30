@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Enums\PlaceStatus;
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Auth;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
@@ -37,6 +39,10 @@ class Place extends Model {
 
 	public function reviews(): MorphMany {
 		return $this->morphMany(Review::class, 'reviewable');
+	}
+
+	public function logo() {
+		return $this->hasOne(Media::class, 'id', 'logo_id');
 	}
 
 	// A helper function to check if the current user has reviewed this places or not.

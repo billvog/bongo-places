@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\FilepondUploaderController;
 use App\Http\Controllers\MyPlacesController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\PlaceLogoController;
 use App\Http\Controllers\PlacePhotosController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,9 @@ Route::delete('/filepond', [FilepondUploaderController::class, 'revert'])->name(
 Route::get('/my/places', [MyPlacesController::class, 'index'])->name('my-places.index');
 
 Route::resource('places', PlaceController::class);
+
+Route::get('/places/{place}/logo/edit', [PlaceLogoController::class, 'edit'])->name('places.logo.edit');
+Route::patch('/places/{place}/logo', [PlaceLogoController::class, 'update'])->name('places.logo.update');
 
 Route::resource('places.photos', PlacePhotosController::class)->only('create', 'store');
 Route::patch('/api/places/{place}/photos', [PlacePhotosController::class, 'update'])->name('places.photos.update');

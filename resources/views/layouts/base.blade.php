@@ -8,6 +8,7 @@
   <title>Bongo Places // discover and rate places worldwide.</title>
 
   @vite('resources/css/app.css')
+  @stack('styles')
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
