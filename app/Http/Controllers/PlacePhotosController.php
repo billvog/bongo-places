@@ -28,7 +28,7 @@ class PlacePhotosController extends Controller {
 		// start counting $currentOrder from the $order 
 		// of the last media.
 		if ($place->medially->count() > 0) {
-			$currentOrder = $place->medially->last()->order;
+			$currentOrder = $place->medially->last()->order + 1;
 		}
 
 		foreach ($temporaryFiles as $tempFile) {
