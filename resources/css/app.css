@@ -61,6 +61,41 @@
 		border-right-color: transparent;
 		animation: spinner 1s linear infinite;
 	}
+
+	/*
+	============================================
+	 Swiper
+	============================================
+	*/
+
+	.swiper-pagination {
+		width: fit-content !important;
+		left: 50% !important;
+		transform: translate(-50%, 0) !important;
+		@apply px-1.5 py-0 backdrop-blur backdrop-filter rounded-full;
+	}
+
+	.swiper-pagination .swiper-pagination-bullet {
+		/* 
+			Pagination bullets seem a little bit off 
+			on the y-axis, so we push a little bit to top.
+		*/
+		margin-bottom: 1.5px !important;
+	}
+}
+
+/*
+============================================
+ Variables
+============================================
+*/
+
+:root {
+	/* Customize Swiper Theme */
+	--swiper-theme-color: #000;
+	--swiper-navigation-color: rgb(244, 164, 15);
+	--swiper-pagination-color: rgb(244, 164, 15);
+	--swiper-pagination-bullet-inactive-color: rgb(244, 164, 15, 0.8);
 }
 
 /*
