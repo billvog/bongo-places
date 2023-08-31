@@ -7,7 +7,6 @@
       <a href="{{ route('places.edit', $place) }}">Edit</a>
     </div>
   @endif
-
   <div>
     <x-swiper-carousel :images="$place->medially" class="h-[500px] rounded-xl mb-4"></x-swiper-carousel>
     <h2>
@@ -50,5 +49,35 @@
         @endforeach
       </div>
     @endif
+  </div>
+@endsection
+
+@section('rightSidebar')
+  {{-- Owner details --}}
+  <div class="max-w-sm w-fit bg-orange-100 rounded-xl px-8 py-6 space-y-4">
+    <div class="font-bold">
+      Meet the owner
+    </div>
+    <div class="flex flex-row items-center space-x-4">
+      <img src="{{ $place->owner->avatar_url }}" class="w-16 h-16 object-cover rounded-2xl">
+      <div class="flex flex-col">
+        <div class="font-bold">
+          {{ $place->owner->name }}
+        </div>
+        <div class="text-orange-400 text-sm">
+          (+49) 478-274-2653
+        </div>
+      </div>
+    </div>
+    <div class="text-sm">
+      <b>Joined at</b> <br>
+      {{ $place->owner->created_at->format('M d, Y') }}
+    </div>
+    <div class="text-sm">
+      <b>About</b> <br>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non doloribus aperiam, magni deserunt ipsam quasi
+      consequuntur dolore omnis, recusandae ipsum ducimus hic voluptas possimus quaerat porro nemo, consequatur
+      perferendis facere?
+    </div>
   </div>
 @endsection
