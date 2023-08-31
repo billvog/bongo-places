@@ -37,6 +37,7 @@
     const myFilepond = filepond.create(fileInput, {
       labelIdle: `Drag & Drop your logo or <span class="filepond--label-action">Browse</span>`,
       acceptedFileTypes: ["image/*"],
+      maxFileSize: '5MB',
       imagePreviewHeight: 170,
       imageCropAspectRatio: '1:1',
       imageResizeTargetWidth: 200,
