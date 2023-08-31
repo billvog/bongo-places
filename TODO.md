@@ -8,3 +8,4 @@
 [x] Place edit action in controller
 [x] Place Photos edit action in controller
 [x] Rewrite the blade view @ places/photos/edit with Vue to also handle delete and upload of images.
+[ ] Seperate `place logo` and `place photos` into their own models for better organization.
