@@ -17,15 +17,25 @@ class PlaceLogoController extends Controller {
 
 	public function update(Place $place, UpdatePlaceLogoRequest $request) {
 		$logoTempId = $request->get('file');
+		if (str_starts_with($logoTempId, 'http')) {
+			return redirect()
+				->action([PlaceLogoController::class, 'edit'], $place)
+				->with('notice', "Looks like you haven't uploaded a file.");
+		}
 
 		$temporaryFile = TemporaryFile::query()->find($logoTempId);
+		if (is_null($temporaryFile)) {
+			return redirect()
+				->action([PlaceLogoController::class, 'edit'], $place)
+				->with('notice', 'Something went wrong while upload your file.');
+		}
 
 		if ($place->logo()->exists()) {
 			// If $place already has a logo, we need to delete it
 			// from Cloudinary ->
 			Cloudinary::destroy($place->logo->getFileName());
 			// and our database ->
-			$place->logo->destroy();
+			$place->logo()->destroy();
 		}
 
 		// Upload file to Cloudinary
