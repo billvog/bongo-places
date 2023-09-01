@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdatePlacePhotosRequest;
 use App\Models\Place;
+use App\Models\PlacePhotos;
 use App\Models\TemporaryFile;
 use Illuminate\Http\Request;
 
@@ -24,17 +25,21 @@ class PlacePhotosController extends Controller {
 
 		$currentOrder = 0;
 
+		$placePhotos = PlacePhotos::query()->firstOrCreate(
+			['place_id' => $place->id]
+		);
+
 		// If Place has media already attached to it, 
 		// start counting $currentOrder from the $order 
 		// of the last media.
-		if ($place->medially->count() > 0) {
-			$currentOrder = $place->medially->last()->order + 1;
+		if ($placePhotos->medially->count() > 0) {
+			$currentOrder = $placePhotos->medially->last()->order + 1;
 		}
 
 		foreach ($temporaryFiles as $tempFile) {
 			// Uploads file to cloudinary and 
 			// creates a bond with the place models.
-			$place->attachRemoteMedia($tempFile->getStoragePath(), $currentOrder);
+			$placePhotos->attachRemoteMedia($tempFile->getStoragePath(), $currentOrder);
 
 			$currentOrder++;
 		}
@@ -55,10 +60,10 @@ class PlacePhotosController extends Controller {
 		$images = $request->validated('images');
 
 		foreach ($images as $image) {
-			$media = $place->medially()->find($image['id']);
+			$media = $place->photos->medially()->find($image['id']);
 
 			if (array_key_exists('deleted', $image) && $image['deleted'] == true) {
-				$place->detachMedia($media);
+				$place->photos->detachMedia($media);
 				continue;
 			}
 

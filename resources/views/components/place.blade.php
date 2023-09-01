@@ -3,9 +3,9 @@
 <div {{ $attributes->merge(['class' => 'group flex flex-col bg-orange-50 rounded-xl']) }}>
   <div class="flex-1 relative">
     {{-- Photos carousel --}}
-    <x-swiper-carousel :images="$place->medially" :zoomOnHover="true" class="h-[200px] rounded-t-xl"></x-swiper-carousel>
+    <x-swiper-carousel :images="$place->photos->medially" :zoomOnHover="true" class="h-[200px] rounded-t-xl"></x-swiper-carousel>
     {{-- Logo --}}
-    <img src="{{ $place->logo()->exists() ? $place->logo->getSecurePath() : 'https://placehold.co/100x100' }}"
+    <img src="{{ $place->hasLogo() ? $place->logo->getSecureUrl() : 'https://placehold.co/100x100' }}"
       alt='Logo for "{{ $place->name }}"'
       class="w-16 h-16 z-10 group-hover:scale-110 transition-transform object-cover rounded-full absolute left-4 -bottom-4 border-2 border-orange-50">
   </div>

@@ -18,7 +18,6 @@ class Place extends Model {
 	use HasFactory;
 	use HasUuids;
 	use HasSpatial;
-	use MediaAlly;
 
 	protected $fillable = [
 		'name',
@@ -41,8 +40,16 @@ class Place extends Model {
 		return $this->morphMany(Review::class, 'reviewable');
 	}
 
+	public function photos() {
+		return $this->hasOne(PlacePhotos::class);
+	}
+
 	public function logo() {
-		return $this->hasOne(Media::class, 'id', 'logo_id');
+		return $this->hasOne(PlaceLogo::class);
+	}
+
+	public function hasLogo() {
+		return $this->logo()->exists();
 	}
 
 	// A helper function to check if the current user has reviewed this places or not.

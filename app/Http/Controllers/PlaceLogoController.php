@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdatePlaceLogoRequest;
 use App\Models\Place;
+use App\Models\PlaceLogo;
 use App\Models\TemporaryFile;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 
 class PlaceLogoController extends Controller {
 	public function edit(Place $place) {
@@ -30,27 +29,14 @@ class PlaceLogoController extends Controller {
 				->with('notice', 'Something went wrong while upload your file.');
 		}
 
-		if ($place->logo()->exists()) {
+		if ($place->hasLogo()) {
 			// If $place already has a logo, we need to delete it
-			// from Cloudinary ->
-			Cloudinary::destroy($place->logo->getFileName());
-			// and our database ->
-			$place->logo()->destroy();
+			$place->logo()->delete();
 		}
 
-		// Upload file to Cloudinary
-		$response = Cloudinary::uploadFile($temporaryFile->getStoragePath());
-
-		// Save file details on our database
-		$media = new Media();
-		$media->file_name = $response->getFileName();
-		$media->file_url = $response->getSecurePath();
-		$media->size = $response->getSize();
-		$media->file_type = $response->getFileType();
-		$media->save();
-
-		$place->logo_id = $media->id;
-		$place->save();
+		$logo = new PlaceLogo();
+		$place->logo()->save($logo);
+		$logo->attachRemoteMedia($temporaryFile->getStoragePath());
 
 		// Remove temporary file.
 		TemporaryFile::destroy($logoTempId);

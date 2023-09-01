@@ -8,7 +8,9 @@
     </div>
   @endif
   <div>
-    <x-swiper-carousel :images="$place->medially" class="h-[500px] rounded-xl mb-4"></x-swiper-carousel>
+    @unless (is_null($place->photos))
+      <x-swiper-carousel :images="$place->photos->medially" class="h-[500px] rounded-xl mb-4"></x-swiper-carousel>
+    @endunless
     <h2>
       {{ $place->name }}
     </h2>

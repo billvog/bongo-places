@@ -50,9 +50,9 @@
       styleButtonRemoveItemPosition: 'left bottom',
       styleButtonProcessItemPosition: 'right bottom',
       files: [
-        @if ($place->logo()->exists())
+        @if ($place->hasLogo())
           {
-            source: '{{ $place->logo->getSecurePath() }}',
+            source: '{{ $place->logo->getSecureUrl() }}',
             options: {
               type: 'local'
             }
