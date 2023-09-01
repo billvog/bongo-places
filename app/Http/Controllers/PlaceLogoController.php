@@ -29,8 +29,12 @@ class PlaceLogoController extends Controller {
 				->with('notice', 'Something went wrong while upload your file.');
 		}
 
+		// If $place already has a logo, we need to delete it.
 		if ($place->hasLogo()) {
-			// If $place already has a logo, we need to delete it
+			// `detachMedia()` will delete and disassociate all the 
+			// associated media to this logo.
+			// Deleting the file from Cloudinary is \App\Observers\CloudinaryMediaObserver's job.
+			$place->logo->detachMedia();
 			$place->logo()->delete();
 		}
 

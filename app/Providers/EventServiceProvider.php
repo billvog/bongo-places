@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Review;
 use App\Models\TemporaryFile;
+use App\Observers\CloudinaryMediaObserver;
 use App\Observers\ReviewObserver;
 use App\Observers\TemporaryFileObserver;
+use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -29,6 +31,7 @@ class EventServiceProvider extends ServiceProvider {
 		// Register the ReviewObserver to update average rating of the reviewable parent.
 		Review::observe(ReviewObserver::class);
 		TemporaryFile::observe(TemporaryFileObserver::class);
+		Media::observe(CloudinaryMediaObserver::class);
 	}
 
 	/**
