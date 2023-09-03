@@ -2,18 +2,11 @@
 import draggable from "vuedraggable";
 export default {
   props: {
-    photos: {
-      type: Array,
-    },
-    uploadPhotosUrl: {
-      type: String,
-    },
-    updatePhotosApiUrl: {
-      type: String,
-    },
-    csrfToken: {
-      type: String,
-    },
+    place: Object,
+    photos: Array,
+    uploadPhotosUrl: String,
+    updatePhotosApiUrl: String,
+    csrfToken: String,
   },
   components: {
     draggable,
@@ -43,6 +36,19 @@ export default {
       }
     },
     handleDeletePressed(photoId) {
+      // If place is published and the user tries to delete
+      // the 1 of 2 remaining images, warn them that doing so
+      // will make the place draft.
+      if (
+        this.place.status === "published" &&
+        this.activePhotosNum == 2 &&
+        confirm(
+          "Deleting this photo will leave the post with only 1 active photo, making it a draft. Are you sure you want to continue?"
+        ) == false
+      ) {
+        return;
+      }
+
       this.images = this.images.map((photo) => {
         if (photo.id === photoId) {
           this.activePhotosNum--;
@@ -134,6 +140,9 @@ export default {
       >
         Update
       </button>
+      <div class="text-sm text-zinc-400 font-medium mt-2.5">
+        For the changes to take effect, you need to click the "Update" button.
+      </div>
     </div>
   </div>
 </template>
