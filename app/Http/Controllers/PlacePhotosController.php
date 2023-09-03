@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PlaceStatus;
 use App\Http\Requests\UpdatePlacePhotosRequest;
 use App\Models\Place;
 use App\Models\PlacePhotos;
@@ -69,6 +70,14 @@ class PlacePhotosController extends Controller {
 
 			$media->order = $image['order'];
 			$media->update();
+		}
+
+		// If `photos` are now less than 2 and the place is published,
+		// change its status to draft.
+		if ($place->status == PlaceStatus::Published && $place->photos()->exists() && $place->photos->medially()->count() < 2) {
+			$place->update([
+				'status' => PlaceStatus::Draft
+			]);
 		}
 
 		return response()->noContent(200);

@@ -82,6 +82,24 @@ class PlaceController extends Controller {
 			$data['coordinates']['longitude']
 		);
 
+		// If place->status has changed to `published` verify it meets
+		// the requirements.
+		if ($place->status->value != $data['status'] && $data['status'] == PlaceStatus::Published->value) {
+			if ($place->hasLogo() == false) {
+				return redirect()
+					->action([PlaceController::class, 'edit'], ['place' => $place])
+					->withInput()
+					->with('notice', "To publish your place you need to upload a logo.");
+			}
+
+			if ($place->photos()->exists() && $place->photos->medially()->count() < 2) {
+				return redirect()
+					->action([PlaceController::class, 'edit'], ['place' => $place])
+					->withInput()
+					->with('notice', "To publish your place you need to upload at least two (2) photos.");
+			}
+		}
+
 		$place->update($data);
 
 		return redirect()->action([PlaceController::class, 'show'], ['place' => $place]);
