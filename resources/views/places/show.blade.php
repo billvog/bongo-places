@@ -7,16 +7,30 @@
       <a href="{{ route('places.edit', $place) }}">Edit</a>
     </div>
   @endif
-  <div>
+  <div class="space-y-4">
+    <div class="flex items-center space-x-4">
+      <div class="relative group">
+        <img src="{{ $place->hasLogo() ? $place->logo->getSecureUrl() : '' }}" alt="{{ $place->name }}'s logo"
+          class="w-20 h-20 object-cover rounded-full">
+        @if (Auth::check() && Auth::user()->id == $place->owner_id)
+          <div
+            class="absolute top-0 bottom-0 left-0 right-0 w-full h-full rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 backdrop-filter backdrop-blur-[2px] bg-black bg-opacity-5 transition-all">
+            <a href="{{ route('places.logo.edit', $place) }}">Edit</a>
+          </div>
+        @endif
+      </div>
+      <h2>
+        {{ $place->name }}
+      </h2>
+    </div>
+
     @unless (is_null($place->photos))
       <x-swiper-carousel :images="$place->photos->medially" class="h-[500px] rounded-xl mb-4"></x-swiper-carousel>
     @endunless
-    <h2>
-      {{ $place->name }}
-    </h2>
-    <p>
+
+    <div>
       {{ $place->description }}
-    </p>
+    </div>
   </div>
   <hr>
   <div>
