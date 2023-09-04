@@ -37,19 +37,15 @@ class PlaceController extends Controller {
 	public function store(StorePlaceRequest $request) {
 		$data = $request->validated();
 
-		// Convert coordinates to Point class that Eloquent understands.
-		$data['coordinates'] = new Point(
-			$data['coordinates']['latitude'],
-			$data['coordinates']['longitude']
-		);
-
 		$place = new Place($data);
 		$place->owner_id = Auth::user()->id;
+		$place->location = '';
+		$place->coordinates = new Point(39.0742, 21.8243);
 		$place->status = PlaceStatus::Draft;
 
 		$place->save();
 
-		return redirect()->action([PlacePhotosController::class, 'create'], ['place' => $place]);
+		return redirect()->action([PlaceLocationController::class, 'edit'], ['place' => $place]);
 	}
 
 	/**
@@ -75,12 +71,6 @@ class PlaceController extends Controller {
 	 */
 	public function update(UpdatePlaceRequest $request, Place $place) {
 		$data = $request->validated();
-
-		// Convert coordinates to Point class that Eloquent understands.
-		$data['coordinates'] = new Point(
-			$data['coordinates']['latitude'],
-			$data['coordinates']['longitude']
-		);
 
 		// If place->status has changed to `published` verify it meets
 		// the requirements.

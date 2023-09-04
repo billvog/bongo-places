@@ -22,8 +22,6 @@ class StorePlaceRequest extends FormRequest {
 		return [
 			'name' => 'required|string|min:5|max:120',
 			'description' => 'required|string|max:5000',
-			'location' => 'required|string',
-			'coordinates' => 'required',
 		];
 	}
 }

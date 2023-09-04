@@ -13,7 +13,7 @@
   </div>
 
   <x-form :action="route('places.photos.store', $place)" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" class="filepond" required />
+    <input type="file" name="file[]" class="filepond" required />
     <div class="pt-4 space-x-4">
       <button type="submit">Upload</button>
       <a href="{{ route('places.photos.edit', $place) }}">Edit existing photos</a>
@@ -24,7 +24,7 @@
 @push('javascripts')
   @vite('resources/js/filepond.js')
   <script type="module">
-    const fileInput = document.querySelector('input[name="file"].filepond');
+    const fileInput = document.querySelector('input[name="file[]"].filepond');
     const myFilepond = filepond.create(fileInput, {
       labelIdle: `Drag & Drop your photos or <span class="filepond--label-action">Browse</span>`,
       acceptedFileTypes: ["image/*"],
