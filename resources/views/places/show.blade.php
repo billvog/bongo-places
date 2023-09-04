@@ -9,16 +9,27 @@
   @endif
   <div class="space-y-4">
     <div class="flex items-center space-x-4">
-      <div class="relative group">
-        <img src="{{ $place->hasLogo() ? $place->logo->getSecureUrl() : '' }}" alt="{{ $place->name }}'s logo"
-          class="w-20 h-20 object-cover rounded-full">
-        @if (Auth::check() && Auth::user()->id == $place->owner_id)
+      {{-- Logo --}}
+      @if ($place->hasLogo())
+        <div class="relative group">
+          <img src="{{ $place->logo->getSecureUrl() }}" alt="{{ $place->name }}'s logo"
+            class="w-20 h-20 object-cover rounded-full">
+          @if (Auth::check() && Auth::user()->id == $place->owner_id)
+            <div
+              class="absolute top-0 bottom-0 left-0 right-0 w-full h-full rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 backdrop-filter backdrop-blur-[2px] bg-black bg-opacity-5 transition-all">
+              <a href="{{ route('places.logo.edit', $place) }}">Edit</a>
+            </div>
+          @endif
+        </div>
+      @else
+        <a href="{{ route('places.logo.edit', $place) }}" title="Add logo" class="hover:no-underline">
           <div
-            class="absolute top-0 bottom-0 left-0 right-0 w-full h-full rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 backdrop-filter backdrop-blur-[2px] bg-black bg-opacity-5 transition-all">
-            <a href="{{ route('places.logo.edit', $place) }}">Edit</a>
+            class="flex justify-center items-center w-20 h-20 rounded-full bg-orange-200 bg-opacity-50 hover:bg-opacity-70 text-orange-600 text-3xl font-normal">
+            +
           </div>
-        @endif
-      </div>
+        </a>
+      @endif
+      {{-- Place name --}}
       <h2>
         {{ $place->name }}
       </h2>
