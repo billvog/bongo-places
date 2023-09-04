@@ -22,15 +22,23 @@ class UploadFileFilepondRequest extends FormRequest {
 	 * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
 	 */
 	public function rules(): array {
+		$fileRules = [
+			File::image()->max('10mb')
+		];
+
+		if (is_array(request('file'))) {
+			return [
+				'file.*' => $fileRules
+			];
+		}
+
 		return [
-			'file' => [
-				'required',
-				File::image()->max('10mb')
-			]
+			'file' => $fileRules,
 		];
 	}
 
 	public function failedValidation(Validator $validator) {
+		dd($validator);
 		throw new HttpResponseException(response()->noContent(400));
 	}
 }

@@ -13,6 +13,9 @@ class FilepondUploaderController extends Controller {
 			$temporaryFile->save();
 
 			$file = $request->file('file');
+			if (is_array($file)) {
+				$file = $file[0];
+			}
 
 			$uploadDirectory = config('filepond.upload_dir');
 			$file->storeAs($uploadDirectory, $temporaryFile->id);
