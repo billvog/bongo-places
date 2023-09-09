@@ -2,6 +2,7 @@
 
 namespace App\Models\Place;
 
+use App\Enums\Place\PlaceStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 use App\Models\Review\Review;
-use App\Enums\PlaceStatus;
+use App\Models\User\User;
 
 class Place extends Model {
 	use HasFactory;
