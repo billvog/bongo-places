@@ -9,7 +9,7 @@
 
   <div>
     <div>
-      <a href="{{ route('auth.google.redirect') }}" class="flex w-fit space-x-2">
+      <a href="{{ route('auth.redirect', 'google') }}" class="flex w-fit space-x-2">
         <img src="{{ asset('storage/oath-providers/google.svg') }}" alt="Google Logo">
         <span>Sign in with Google</span>
       </a>

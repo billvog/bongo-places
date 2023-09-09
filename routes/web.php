@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\Auth\GoogleLoginController;
-use App\Http\Controllers\FilepondUploaderController;
-use App\Http\Controllers\MyPlacesController;
-use App\Http\Controllers\PlaceController;
-use App\Http\Controllers\PlaceLocationController;
-use App\Http\Controllers\PlaceLogoController;
-use App\Http\Controllers\PlacePhotosController;
-use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Auth\SocialiteLoginController;
+use App\Http\Controllers\Filepond\FilepondUploaderController;
+use App\Http\Controllers\Place\MyPlacesController;
+use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Place\PlaceLocationController;
+use App\Http\Controllers\Place\PlaceLogoController;
+use App\Http\Controllers\Place\PlacePhotosController;
+use App\Http\Controllers\Review\ReviewController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -62,9 +62,9 @@ Route::name('auth.')->prefix('/auth')->group(function () {
 		->middleware('auth')
 		->name('logout');
 
-	Route::name('google.')->prefix('/google')->group(function () {
-		Route::get('/redirect', [GoogleLoginController::class, 'redirectToProvider'])->name('redirect');
-		Route::get('/callback', [GoogleLoginController::class, 'handleProviderCallback'])->name('callback');
+	Route::group([], function () {
+		Route::get('/{provider}/redirect', [SocialiteLoginController::class, 'redirectToProvider'])->name('redirect');
+		Route::get('/{provider}/callback', [SocialiteLoginController::class, 'handleProviderCallback'])->name('callback');
 	})
 		->middleware('guest');
 });
