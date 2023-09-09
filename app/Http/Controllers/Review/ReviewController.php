@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Review;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreReviewRequest;
-use App\Http\Requests\UpdateReviewRequest;
-use App\Models\Place;
-use App\Models\Review;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Review\StoreReviewRequest;
+use App\Http\Requests\Review\UpdateReviewRequest;
+use App\Models\Review\Review;
+use App\Models\Place\Place;
 
 class ReviewController extends Controller {
 	public function __construct() {

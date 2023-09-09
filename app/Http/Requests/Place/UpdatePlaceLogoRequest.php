@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Place;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StorePlaceRequest extends FormRequest {
+class UpdatePlaceLogoRequest extends FormRequest {
 	/**
 	 * Determine if the user is authorized to make this request.
 	 */
 	public function authorize(): bool {
-		return Auth::check();
+		$place = $this->route('place');
+		return Auth::check() && Auth::user()->id == $place->owner_id;
 	}
 
 	/**
@@ -20,8 +21,7 @@ class StorePlaceRequest extends FormRequest {
 	 */
 	public function rules(): array {
 		return [
-			'name' => 'required|string|min:5|max:120',
-			'description' => 'required|string|max:5000',
+			'file' => 'required|string'
 		];
 	}
 }

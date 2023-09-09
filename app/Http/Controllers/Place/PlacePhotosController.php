@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Place;
 
-use App\Enums\PlaceStatus;
-use App\Http\Requests\UpdatePlacePhotosRequest;
-use App\Models\Place;
-use App\Models\PlacePhotos;
-use App\Models\TemporaryFile;
+use App\Enums\Place\PlaceStatus;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Place\UpdatePlacePhotosRequest;
+use App\Models\Place\Place;
+use App\Models\Place\PlacePhotos;
+use App\Models\TemporaryFile;
 
 class PlacePhotosController extends Controller {
 	public function create(Place $place) {

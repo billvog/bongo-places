@@ -2,8 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Place;
-use App\Models\Review;
+use App\Models\Review\Review;
 
 class ReviewObserver {
 	/**

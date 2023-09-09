@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Place;
 
-use App\Http\Requests\UpdatePlaceLogoRequest;
-use App\Models\Place;
-use App\Models\PlaceLogo;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Place\UpdatePlaceLogoRequest;
+use App\Models\Place\Place;
+use App\Models\Place\PlaceLogo;
 use App\Models\TemporaryFile;
 
 class PlaceLogoController extends Controller {

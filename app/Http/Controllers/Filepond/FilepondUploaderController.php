@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Filepond;
 
-use App\Http\Requests\UploadFileFilepondRequest;
-use App\Models\TemporaryFile;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Filepond\UploadFileFilepondRequest;
+use App\Models\TemporaryFile;
 
 class FilepondUploaderController extends Controller {
 	public function process(UploadFileFilepondRequest $request) {

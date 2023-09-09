@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Place;
 
-use App\Http\Requests\UpdatePlaceLocationRequest;
-use App\Models\Place;
 use MatanYadaev\EloquentSpatial\Objects\Point;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Place\UpdatePlaceLocationRequest;
+use App\Models\Place\Place;
 
 class PlaceLocationController extends Controller {
 	public function edit(Place $place) {

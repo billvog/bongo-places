@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Place;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdatePlaceLogoRequest extends FormRequest {
+class UpdatePlaceLocationRequest extends FormRequest {
 	/**
 	 * Determine if the user is authorized to make this request.
 	 */
@@ -21,7 +21,10 @@ class UpdatePlaceLogoRequest extends FormRequest {
 	 */
 	public function rules(): array {
 		return [
-			'file' => 'required|string'
+			'location' => 'required|string',
+			'coordinates' => 'required|array',
+			'coordinates.latitude' => 'required|between:-90,90',
+			'coordinates.longitude' => 'required|between:-180,180'
 		];
 	}
 }

@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Place;
 
+use App\Enums\PlaceStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Enum;
 
-class UpdatePlaceLocationRequest extends FormRequest {
+class UpdatePlaceRequest extends FormRequest {
 	/**
 	 * Determine if the user is authorized to make this request.
 	 */
@@ -21,10 +23,9 @@ class UpdatePlaceLocationRequest extends FormRequest {
 	 */
 	public function rules(): array {
 		return [
-			'location' => 'required|string',
-			'coordinates' => 'required|array',
-			'coordinates.latitude' => 'required|between:-90,90',
-			'coordinates.longitude' => 'required|between:-180,180'
+			'name' => 'required|string|min:5|max:120',
+			'description' => 'required|string|max:5000',
+			'status' => ['required', new Enum(PlaceStatus::class)]
 		];
 	}
 }

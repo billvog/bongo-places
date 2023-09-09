@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Review;
+use App\Models\Review\Review;
 use App\Models\TemporaryFile;
 use App\Observers\CloudinaryMediaObserver;
 use App\Observers\ReviewObserver;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Place;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class MyPlacesController extends Controller {

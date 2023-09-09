@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Place;
 
-use App\Enums\PlaceStatus;
-use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
-use CloudinaryLabs\CloudinaryLaravel\Model\Media;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Auth;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
+use App\Models\Review\Review;
+use App\Enums\PlaceStatus;
 
 class Place extends Model {
 	use HasFactory;

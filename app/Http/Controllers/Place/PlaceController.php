@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Place;
 
-use App\Enums\PlaceStatus;
-use App\Http\Requests\StorePlaceRequest;
-use App\Http\Requests\UpdatePlaceRequest;
-use App\Models\Place;
-use Illuminate\Http\Request;
+use App\Enums\Place\PlaceStatus;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Place\StorePlaceRequest;
+use App\Http\Requests\Place\UpdatePlaceRequest;
+use App\Models\Place\Place;
 use Illuminate\Support\Facades\Auth;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 

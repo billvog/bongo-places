@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Filepond;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\Auth;
 
 class UploadFileFilepondRequest extends FormRequest {
 	/**

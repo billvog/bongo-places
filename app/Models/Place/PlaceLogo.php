@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Place;
 
-use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 
 class PlaceLogo extends Model {
 	use MediaAlly;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Place;
 
 enum PlaceStatus: string {
 	case Draft = 'draft';
