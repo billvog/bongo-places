@@ -18,7 +18,7 @@
     <div class="flex flex-col">
       <label for="description">Description</label>
       <textarea name="description" id="description" cols="30" rows="10"
-        placeholder="Write the some words about your place here..." required>{{ old('description') }}</textarea>
+        placeholder="Write some words about your place here..." required>{{ old('description') }}</textarea>
     </div>
 
     <div class="pt-4">
