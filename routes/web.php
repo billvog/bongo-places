@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Account\AccountProfileController;
+use App\Http\Controllers\Account\SocialAccountsController;
 use App\Http\Controllers\Auth\SocialiteLoginController;
 use App\Http\Controllers\Filepond\FilepondUploaderController;
 use App\Http\Controllers\Place\MyPlacesController;
@@ -48,6 +50,17 @@ Route::get('/places/{place}/photos/edit', [PlacePhotosController::class, 'edit']
 
 Route::resource('places.reviews', ReviewController::class)
 	->except(['show']);
+
+// 
+// Routes for account settings
+// 
+Route::get('/account', fn () => redirect()->action([AccountProfileController::class, 'index']))->name('account.index');
+
+Route::get('/account/profile', [AccountProfileController::class, 'index'])->name('account.profile');
+Route::patch('/account/profile', [AccountProfileController::class, 'update'])->name('account.profile.update');
+
+Route::get('/account/socialaccounts', [SocialAccountsController::class, 'index'])->name('account.social_accounts');
+Route::delete('/account/socialaccounts/{oauthProvider}', [SocialAccountsController::class, 'destroy'])->name('account.social_accounts.destroy');
 
 // Socialite Authentcation
 Route::name('auth.')->prefix('/auth')->group(function () {
