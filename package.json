@@ -17,12 +17,15 @@
         "vue": "^3.2.36"
     },
     "dependencies": {
+        "@mapbox/mapbox-gl-geocoder": "^5.0.1",
         "filepond": "^4.30.4",
         "filepond-plugin-file-validate-size": "^2.2.8",
         "filepond-plugin-file-validate-type": "^1.2.8",
         "filepond-plugin-image-preview": "^4.6.11",
         "filepond-plugin-image-transform": "^3.8.7",
+        "mapbox-gl": "^2.15.0",
         "sortablejs": "^1.15.0",
+        "swiper": "^10.2.0",
         "vuedraggable": "^4.1.0"
     }
 }

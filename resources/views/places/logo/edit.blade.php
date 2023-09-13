@@ -36,7 +36,7 @@
   <script type="module">
     // Setup FilePond for file uploading.
     const fileInput = document.querySelector('input[name="file"].filepond');
-    const myFilepond = filepond.create(fileInput, {
+    const filepond = Filepond.create(fileInput, {
       labelIdle: `Drag & Drop your logo or <span class="filepond--label-action">Browse</span>`,
       acceptedFileTypes: ["image/*"],
       maxFileSize: '5MB',
@@ -80,7 +80,7 @@
     updateLogoForm.addEventListener('submit', (event) => {
       updateLogoFormError.textContent = '';
 
-      if (myFilepond.getFile()?.source.startsWith('http')) {
+      if (filepond.getFile()?.source.startsWith('http')) {
         event.preventDefault();
         updateLogoFormError.textContent = 'Please upload another logo if you wish to update it.'
       }

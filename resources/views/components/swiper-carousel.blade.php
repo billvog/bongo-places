@@ -1,9 +1,5 @@
 @props(['images', 'zoomOnHover' => false])
 
-@pushOnce('styles')
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-@endPushOnce
-
 <div {{ $attributes->merge(['class' => 'swiper group']) }}>
   <div class="swiper-wrapper">
     @foreach ($images as $image)
@@ -29,9 +25,8 @@
 </div>
 
 @pushOnce('javascripts')
+  @vite('resources/js/swiper.js')
   <script type="module">
-    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.mjs'
-
     const swiper = new Swiper('.swiper', {
       direction: 'horizontal',
       loop: true,

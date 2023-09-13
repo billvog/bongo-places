@@ -1,11 +1,5 @@
 @extends('layouts.base')
 
-@push('styles')
-  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css">
-  <link rel="stylesheet"
-    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css">
-@endpush
-
 @section('content')
   <div>
     <a href="{{ route('places.edit', $place) }}">Back</a>
@@ -47,8 +41,7 @@
 @endsection
 
 @push('javascripts')
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+  @vite('resources/js/mapbox.js')
   <script type="module">
     const coordinatesLatField = document.getElementById('coordinates[latitude]');
     const coordinatesLngField = document.getElementById('coordinates[longitude]');

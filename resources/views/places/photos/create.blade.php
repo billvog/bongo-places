@@ -25,7 +25,7 @@
   @vite('resources/js/filepond.js')
   <script type="module">
     const fileInput = document.querySelector('input[name="file[]"].filepond');
-    const myFilepond = filepond.create(fileInput, {
+    const filepond = Filepond.create(fileInput, {
       labelIdle: `Drag & Drop your photos or <span class="filepond--label-action">Browse</span>`,
       acceptedFileTypes: ["image/*"],
       allowMultiple: true,
@@ -34,7 +34,7 @@
       imageCropAspectRatio: 1,
     });
 
-    myFilepond.server = {
+    filepond.server = {
       url: "{{ route('filepond-server') }}",
       headers: {
         'X-CSRF-TOKEN': '{{ csrf_token() }}'
