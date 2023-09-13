@@ -17,6 +17,8 @@ class SocialiteLoginController extends Controller {
 	public function handleProviderCallback(string $provider) {
 		$oathUser = Socialite::driver($provider)->user();
 
+		$providerFriendlyName = config("socialite.socialite_providers.$provider");
+
 		$user = User::updateOrCreate(
 			['email' => $oathUser->getEmail()],
 			[
@@ -28,6 +30,8 @@ class SocialiteLoginController extends Controller {
 		OAuthProvider::updateOrCreate(
 			['id' => $oathUser->getId()],
 			[
+				'name' => $provider,
+				'friendly_name' => $providerFriendlyName,
 				'token' => $oathUser->token,
 				'refresh_token' => $oathUser->refreshToken,
 				'expires_in' => $oathUser->expiresIn,
