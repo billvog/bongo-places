@@ -17,4 +17,8 @@ class OAuthProvider extends Model {
 		'expires_in',
 		'user_id'
 	];
+
+	protected $casts = [
+		'id' => 'string'
+	];
 }
