@@ -22,9 +22,17 @@
     </div>
 
     <div class="flex flex-col">
-      <label>A little more precise?</label>
-      <div class="text-sm text-zinc-500 mb-2">
-        Find where your place is located on the map.
+      <div class="flex flex-row justify-between items-center">
+        <div class="flex flex-col">
+          <label>A little more precise?</label>
+          <div class="text-sm text-zinc-500 mb-2">
+            Find where your place is located on the map.
+          </div>
+        </div>
+        <div>
+          <button type="button" id="resetCoordinatesButton" class="link text-sm"
+            title="Reset marker to inital coordinates.">reset</button>
+        </div>
       </div>
       <div id="map" class="w-full h-[400px]"></div>
     </div>
@@ -46,17 +54,22 @@
     const coordinatesLatField = document.getElementById('coordinates[latitude]');
     const coordinatesLngField = document.getElementById('coordinates[longitude]');
 
+    const resetCoordinatesButton = document.getElementById('resetCoordinatesButton');
+
+    const initialCoordinates = {
+      lat: parseFloat(coordinatesLatField.value),
+      lng: parseFloat(coordinatesLngField.value)
+    }
+
+    // This variable will hold the marker object.
     var marker = null;
 
+    // Initilize our map.
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmlsbHZvZyIsImEiOiJjbG0zczB6bWcyZnZ3M2xwNjNiOXFnMnJ0In0.b3HHw4P9LUQzwS1fxA8IlQ';
-
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: {
-        lat: parseFloat(coordinatesLatField.value),
-        lng: parseFloat(coordinatesLngField.value)
-      },
+      center: initialCoordinates,
       zoom: 10
     });
 
@@ -69,6 +82,8 @@
       })
     );
 
+    // Initialize the marker when map loads
+    // and center to it.
     map.on('load', () => {
       let existingCoordinates = {
         lat: parseFloat(coordinatesLatField.value),
@@ -92,6 +107,7 @@
       createOrUpdateMarker(coordinates);
     });
 
+    // Create (or update) a marker at the specified coordinates.
     function createOrUpdateMarker(coordinates) {
       if (marker == null) {
         marker = new mapboxgl.Marker({
@@ -102,5 +118,13 @@
         marker.setLngLat(coordinates);
       }
     }
+
+    // Reset coordinates to their initial value.
+    resetCoordinatesButton.addEventListener('click', () => {
+      createOrUpdateMarker(initialCoordinates);
+      map.flyTo({
+        center: initialCoordinates
+      });
+    });
   </script>
 @endpush

@@ -40,6 +40,12 @@
 		background-color: rgb(220, 38, 38) !important;
 	}
 
+	button.link {
+		all: unset;
+		background-color: transparent !important;
+		@apply p-0 text-blue-500 font-bold cursor-pointer hover:underline;
+	}
+
 	button.loading {
 		color: transparent;
 	}
