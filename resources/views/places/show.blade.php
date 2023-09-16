@@ -1,12 +1,14 @@
 @extends('layouts.base')
 
 @section('content')
+  {{-- Header --}}
   @if (Auth::check() && Auth::user()->id == $place->owner_id)
     <div class="w-fit ml-auto space-x-4">
       <a href="{{ route('places.photos.edit', $place) }}">Edit Photos</a>
       <a href="{{ route('places.edit', $place) }}">Edit</a>
     </div>
   @endif
+
   <div class="space-y-4">
     <div class="flex items-center space-x-4">
       {{-- Logo --}}
@@ -29,10 +31,30 @@
           </div>
         </a>
       @endif
-      {{-- Place name --}}
-      <h2>
-        {{ $place->name }}
-      </h2>
+      <div class="flex flex-col space-y-1">
+        {{-- Place name --}}
+        <h2>
+          {{ $place->name }}
+        </h2>
+        <div class="flex divider text-base">
+          {{-- Rating --}}
+          <div>
+            @if ($place->total_reviews_count === 0)
+              <div>
+                No reviews yet.
+              </div>
+            @else
+              <div class="text-yellow-400 font-bold">
+                <span>★</span> {{ $place->average_rating }}
+              </div>
+            @endif
+          </div>
+          {{-- Location --}}
+          <div>
+            {{ $place->location }}
+          </div>
+        </div>
+      </div>
     </div>
 
     @unless (is_null($place->photos))
@@ -44,6 +66,8 @@
     </div>
   </div>
   <hr>
+
+  {{-- Review Section --}}
   <div>
     @if ($place->total_reviews_count === 0)
       <div class="space-y-2">

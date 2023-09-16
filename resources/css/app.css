@@ -19,6 +19,10 @@
 		@apply font-bold underline-offset-4 hover:underline;
 	}
 
+	.divider {
+		@apply space-x-4 divide-x-2 [&>*:not(:first-child)]:pl-4;
+	}
+
 	/* 
 	============================================
 	 Forms
