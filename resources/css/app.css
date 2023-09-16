@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+	body {
+		@apply bg-orange-50;
+	}
+
 	a, button, div {
 		@apply underline-offset-4;
 	}
@@ -19,8 +23,12 @@
 		@apply font-bold underline-offset-4 hover:underline;
 	}
 
-	.divider {
+	.divider-x {
 		@apply space-x-4 divide-x-2 [&>*:not(:first-child)]:pl-4;
+	}
+
+	.divider-y {
+		@apply space-y-4 divide-y-2 [&>*:not(:first-child)]:pt-8;
 	}
 
 	/* 

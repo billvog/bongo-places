@@ -1,6 +1,6 @@
 @props(['review'])
 
-<div class="px-6 py-4 bg-orange-50">
+<div class="px-6 py-4">
   <div class="flex space-x-2">
     <div class="flex space-x-2 group">
       @if ($review->reviewer->avatar_url)

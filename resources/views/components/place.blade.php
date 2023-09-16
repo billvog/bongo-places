@@ -1,6 +1,6 @@
 @props(['place'])
 
-<div {{ $attributes->merge(['class' => 'group flex flex-col bg-orange-50 rounded-xl']) }}>
+<div {{ $attributes->merge(['class' => 'group flex flex-col bg-orange-100 rounded-xl']) }}>
   <div class="flex-1 relative">
     {{-- Photos carousel --}}
     <x-swiper-carousel :images="$place->photos->medially" :zoomOnHover="true" class="h-[200px] rounded-t-xl"></x-swiper-carousel>

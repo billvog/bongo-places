@@ -36,7 +36,7 @@
         <h2>
           {{ $place->name }}
         </h2>
-        <div class="flex divider text-base">
+        <div class="flex divider-x text-base">
           {{-- Rating --}}
           <div>
             @if ($place->total_reviews_count === 0)
@@ -65,13 +65,14 @@
       {{ $place->description }}
     </div>
   </div>
-  <hr>
+
+  <x-spacer value="2" />
 
   {{-- Review Section --}}
-  <div>
+  <div class="bg-orange-100 px-8 py-6">
     @if ($place->total_reviews_count === 0)
       <div class="space-y-2">
-        <div>No reviews yet.</div>
+        <div class="text-2xl font-bold">No reviews yet.</div>
         @auth
           <div class="text-right ml-auto w-[300px]">
             Been there? Share you experience, and
@@ -80,22 +81,22 @@
         @endauth
       </div>
     @else
-      <div class="flex items-center space-x-4">
-        <div class="text-4xl font-bold">
-          <span class="text-yellow-400">★</span> {{ number_format($place->average_rating, 1) }} <span
-            class="text-yellow-400">/ 5</span>
+      <div class="flex items-center leading-tight space-x-4 text-4xl font-bold">
+        <div class="text-black">
+          Reviews
         </div>
-        <div class="text-zinc-400 font-medium">
-          ({{ $place->total_reviews_count }} reviews)
+        <div class="font-acme text-orange-300">
+          {{ $place->total_reviews_count }}
         </div>
       </div>
-      <div class="mt-8 space-y-4">
+      <div class="mt-8 divider-y divide-orange-200">
         @if (Auth::check() && !$place->haveReviewed())
           <div>
             Been there? <a href="{{ route('places.reviews.create', $place) }}">Leave a review</a>.
           </div>
         @endif
         @foreach ($place->reviews as $review)
+          <x-review :review="$review" />
           <x-review :review="$review" />
         @endforeach
       </div>
