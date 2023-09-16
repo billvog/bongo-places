@@ -20,7 +20,11 @@
 	}
 
 	a {
-		@apply font-bold underline-offset-4 hover:underline;
+		@apply font-bold hover:underline underline-offset-4;
+	}
+
+	.link {
+		@apply font-normal border-b-2 border-b-orange-200 border-dotted hover:border-solid hover:no-underline;
 	}
 
 	.divider-x {
@@ -109,6 +113,19 @@
 			on the y-axis, so we push a little bit to top.
 		*/
 		margin-bottom: 1.5px !important;
+	}
+
+	/*
+	============================================
+	 MicroModal
+	============================================
+	*/
+	.modal {
+		visibility: hidden;
+	}
+	
+	.modal.is-open {
+		visibility: visible;
 	}
 }
 

@@ -43,6 +43,8 @@
     </div>
   </div>
 
+  @stack('modals')
+
   @vite('resources/js/app.js')
   @stack('javascripts')
 </body>

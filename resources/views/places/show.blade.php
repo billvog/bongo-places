@@ -51,7 +51,9 @@
           </div>
           {{-- Location --}}
           <div>
-            {{ $place->location }}
+            <a href="javascript:openMap();" class="link">
+              {{ $place->location }}
+            </a>
           </div>
         </div>
       </div>
@@ -97,7 +99,6 @@
         @endif
         @foreach ($place->reviews as $review)
           <x-review :review="$review" />
-          <x-review :review="$review" />
         @endforeach
       </div>
     @endif
@@ -133,3 +134,22 @@
     </div>
   </div>
 @endsection
+
+@push('modals')
+  <x-modal id="placeMapModal" title="Map">
+    <x-place.locationMap :place="$place" />
+  </x-modal>
+@endpush
+
+@push('javascripts')
+  @vite('resources/js/micromodal.js')
+  <script>
+    function openMap() {
+      MicroModal.show('placeMapModal');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      MicroModal.init();
+    });
+  </script>
+@endpush

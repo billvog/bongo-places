@@ -34,7 +34,7 @@
             title="Reset marker to inital coordinates.">reset</button>
         </div>
       </div>
-      <div id="map" class="w-full h-[400px]"></div>
+      <x-place.locationMap :place="$place" isMarkerDraggable="{{ true }}" />
     </div>
 
     <input type="number" name="coordinates[latitude]" id="coordinates[latitude]"
@@ -57,21 +57,12 @@
     const resetCoordinatesButton = document.getElementById('resetCoordinatesButton');
 
     const initialCoordinates = {
-      lat: parseFloat(coordinatesLatField.value),
-      lng: parseFloat(coordinatesLngField.value)
+      lat: {{ $place->coordinates->latitude }},
+      lng: {{ $place->coordinates->longitude }}
     }
 
-    // This variable will hold the marker object.
-    var marker = null;
-
-    // Initilize our map.
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYmlsbHZvZyIsImEiOiJjbG0zczB6bWcyZnZ3M2xwNjNiOXFnMnJ0In0.b3HHw4P9LUQzwS1fxA8IlQ';
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: initialCoordinates,
-      zoom: 10
-    });
+    const map = window.placeMap.mapboxMap
+    const createOrUpdateMarker = window.placeMap.createOrUpdateMarker
 
     // Add the control to the map.
     map.addControl(
@@ -82,21 +73,6 @@
       })
     );
 
-    // Initialize the marker when map loads
-    // and center to it.
-    map.on('load', () => {
-      let existingCoordinates = {
-        lat: parseFloat(coordinatesLatField.value),
-        lng: parseFloat(coordinatesLngField.value)
-      }
-
-      createOrUpdateMarker(existingCoordinates);
-
-      map.flyTo({
-        center: existingCoordinates
-      });
-    });
-
     // Add marker when clicking the map.
     map.on('click', (event) => {
       let coordinates = event.lngLat;
@@ -106,18 +82,6 @@
 
       createOrUpdateMarker(coordinates);
     });
-
-    // Create (or update) a marker at the specified coordinates.
-    function createOrUpdateMarker(coordinates) {
-      if (marker == null) {
-        marker = new mapboxgl.Marker({
-          draggable: true,
-          color: "#F5AC2F",
-        }).setLngLat(coordinates).addTo(map);
-      } else {
-        marker.setLngLat(coordinates);
-      }
-    }
 
     // Reset coordinates to their initial value.
     resetCoordinatesButton.addEventListener('click', () => {
