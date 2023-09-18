@@ -27,6 +27,14 @@
 		@apply font-normal border-b-2 border-b-orange-200 border-dotted hover:border-solid hover:no-underline;
 	}
 
+	/* 
+		For external links; urls outside Bongo Places.
+	*/
+	.link-ext::after {
+		content: '↗';
+		@apply ml-2;
+	}
+
 	.divider-x {
 		@apply space-x-4 divide-x-2 [&>*:not(:first-child)]:pl-4;
 	}
