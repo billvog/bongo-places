@@ -136,7 +136,14 @@
 @endsection
 
 @push('modals')
-  <x-modal id="placeMapModal" title="Map">
+  <x-modal id="placeMapModal" :title="$place->location">
+    {{-- Open in Google Map link --}}
+    <div class="pb-8">
+      <a href="http://www.google.com/maps/place/{{ $place->coordinates->latitude }},{{ $place->coordinates->longitude }}"
+        target="blank" class="link link-ext">Open
+        in Google Maps</a>
+    </div>
+    {{-- Mapbox Map --}}
     <x-place.locationMap :place="$place" />
   </x-modal>
 @endpush
