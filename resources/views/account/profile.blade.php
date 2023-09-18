@@ -19,11 +19,6 @@
         <input value="{{ $user->email }}" disabled />
       </div>
 
-      <div class="flex flex-col">
-        <label for="bio">Bio</label>
-        <textarea name="bio" id="bio" cols="30" rows="5" placeholder="Write the some about you...">{{ old('bio', '') }}</textarea>
-      </div>
-
       <div class="pt-4">
         <button type="submit">Update</button>
       </div>
