@@ -8,14 +8,7 @@
 @extends('layouts.base')
 
 @section('leftSidebar')
-  <div class="h-full flex flex-col items-end space-y-4 pr-8 border-r-2">
-    @foreach ($tabs as $tabRoute => $tabName)
-      <div>
-        <a href="{{ route($tabRoute) }}"
-          @if (Route::currentRouteName() == $tabRoute) class="underline text-orange-400" @endif>{{ $tabName }}</a>
-      </div>
-    @endforeach
-  </div>
+  <x-sidebarNavigation :tabs="$tabs" />
 @endsection
 
 @section('content')
