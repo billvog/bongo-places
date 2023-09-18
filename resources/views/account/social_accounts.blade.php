@@ -5,10 +5,10 @@
     <div>You are connected with:</div>
     @foreach ($connectedSocialAccounts as $index => $account)
       <div
-        class="flex flex-row justify-between px-6 py-4 @if ($index % 2 == 0) bg-orange-50 @else bg-white @endif">
+        class="flex flex-row justify-between px-6 py-4 @if ($index % 2 == 0) bg-orange-100 @else bg-orange-50 @endif">
         <div class="flex items-center space-x-2">
           <img src="{{ asset("storage/oath-providers/$account->name.svg") }}" alt="Google Logo" class='h-5'>
-          <div class="text-orange-400 text-lg font-bold">
+          <div class="text-black text-lg font-bold">
             {{ $account->friendly_name }}
           </div>
         </div>
