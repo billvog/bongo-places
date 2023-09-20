@@ -18,10 +18,12 @@
   </div>
 
   <div class="text-sm">
-    <b>NOTE:</b> To make your place publish (hence visiable to others) you need to upload a logo.
+    <b>NOTE:</b> To make your place publish (hence visiable to others) you need to
+    upload a logo.
   </div>
 
-  <x-form id="updateLogoForm" :action="route('places.logo.update', $place)" method="post" enctype="multipart/form-data">
+  <x-form id="updateLogoForm" :action="route('places.logo.update', $place)" method="post"
+    enctype="multipart/form-data">
     @method('patch')
     <input type="file" name="file" class="filepond" required />
     <div class="pt-4 space-x-4">
@@ -34,7 +36,7 @@
 @push('javascripts')
   @vite('resources/js/filepond.js')
   <script type="module">
-    // Setup FilePond for file uploading.
+    // Configure Filepond
     const fileInput = document.querySelector('input[name="file"].filepond');
     const filepond = Filepond.create(fileInput, {
       labelIdle: `Drag & Drop your logo or <span class="filepond--label-action">Browse</span>`,
@@ -72,17 +74,53 @@
       }
     });
 
-    // Check if user has uploaded a file
-    // before submitting the form.
     const updateLogoForm = document.getElementById('updateLogoForm');
     const updateLogoFormError = document.getElementById('updateLogoFormError');
 
-    updateLogoForm.addEventListener('submit', (event) => {
+    // Check if user has uploaded a file
+    // before submitting the form.
+    const canUpdateLogoFormSubmit = () => {
       updateLogoFormError.textContent = '';
 
-      if (filepond.getFile()?.source.startsWith('http')) {
+      // Get current loaded file from Filepond.
+      const logoFile = filepond.getFile();
+
+      // Check if it is null, meaning that there 
+      // isn't a loaded file.
+      if (logoFile == null) {
+        updateLogoFormError.textContent =
+          'Please select a photo first.';
+        return false;
+      }
+
+      // Check the origin of the file. `INPUT` 
+      // means that the user selected it. We 
+      // do that because if the Place has a
+      // logo already it gets loaded in startup.
+      // The existing logo has an origin of `LOCAL`.
+      // See Filepond docs for that.
+      if (logoFile.origin !== Filepond.FileOrigin.INPUT) {
+        updateLogoFormError.textContent =
+          'Please upload another logo if you wish to update it.';
+        return false;
+      }
+
+      // Check if Filepond is ready, meaning 
+      // that if a logo is chosen it is uploaded.
+      if (filepond.status !== Filepond.Status.READY) {
+        updateLogoFormError.textContent =
+          'Please wait until the logo is uploaded.';
+        return false;
+      }
+
+      // In every other case, the form is good,
+      // so we can submit.
+      return true;
+    }
+
+    updateLogoForm.addEventListener('submit', (event) => {
+      if (canUpdateLogoFormSubmit() === false) {
         event.preventDefault();
-        updateLogoFormError.textContent = 'Please upload another logo if you wish to update it.'
       }
     })
   </script>
