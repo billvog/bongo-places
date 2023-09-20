@@ -1,10 +1,12 @@
 <script>
+import { ref } from "vue";
 import draggable from "vuedraggable";
+
 export default {
   props: {
     place: Object,
     photos: Array,
-    uploadPhotosUrl: String,
+    uploadPhotosModalId: String,
     updatePhotosApiUrl: String,
     csrfToken: String,
   },
@@ -15,10 +17,23 @@ export default {
     return {
       images: this.photos,
       activePhotosNum: this.photos.length,
-      isLoading: false,
+    };
+  },
+  setup() {
+    const submitChangesButton = ref(null);
+    return {
+      submitChangesButton,
+    };
+  },
+  mounted() {
+    window.onPhotosUploadedCallback = (photos) => {
+      this.mergePhotos(photos);
     };
   },
   methods: {
+    // ================================================================ //
+    // Methods for handling reordering, deleting and submiting updates. //
+    // ================================================================ //
     onChange(event) {
       if (event.moved) {
         let oldIndex = event.moved.oldIndex;
@@ -58,8 +73,8 @@ export default {
         }
       });
     },
-    handleSubmitPressed() {
-      this.isLoading = true;
+    handleSubmitChangesButtonPressed() {
+      this.submitChangesButton.setIsLoading(true);
 
       fetch(this.updatePhotosApiUrl, {
         method: "POST",
@@ -78,8 +93,27 @@ export default {
         })
         .catch(() => {})
         .finally(() => {
-          this.isLoading = false;
+          this.submitChangesButton.setIsLoading(false);
         });
+    },
+    // =============================== //
+    // Methods for handling uploading. //
+    // =============================== //
+    handleOpenUploadModalButtonPressed() {
+      MicroModal.show(this.uploadPhotosModalId);
+    },
+    mergePhotos(newPhotos) {
+      // The `newPhotos` variable doesn't actually contain
+      // new photos. The API returns all the photos associated
+      // with the place.
+      // So, the job of this function is to find the photos that
+      // are not currently in the `this.images` array and append them.
+      newPhotos.forEach((photo) => {
+        let existingImage = this.images.find((image) => photo.id === image.id);
+        if (existingImage === undefined) {
+          this.images.push(photo);
+        }
+      });
     },
   },
 };
@@ -110,17 +144,13 @@ export default {
         </div>
       </template>
       <template #footer>
-        <a
-          :href="uploadPhotosUrl"
+        <div
           title="Upload photos"
-          class="hover:no-underline"
+          class="bg-orange-200 bg-opacity-50 hover:bg-opacity-70 text-orange-600 text-2xl font-normal flex justify-center items-center w-auto h-full min-h-[100px] aspect-square cursor-pointer"
+          @click="handleOpenUploadModalButtonPressed"
         >
-          <div
-            class="bg-orange-200 bg-opacity-50 hover:bg-opacity-70 text-orange-600 text-2xl font-normal flex justify-center items-center w-auto h-full min-h-[100px] aspect-square"
-          >
-            +
-          </div>
-        </a>
+          +
+        </div>
       </template>
     </draggable>
     <div v-if="activePhotosNum <= 0">
@@ -134,9 +164,9 @@ export default {
     </div>
     <div>
       <button
-        :class="{ loading: isLoading }"
-        :disabled="isLoading"
-        @click="handleSubmitPressed"
+        is="custom-button"
+        ref="submitChangesButton"
+        @click="handleSubmitChangesButtonPressed"
       >
         Update
       </button>

@@ -44,7 +44,7 @@ Route::patch('/places/{place}/location', [PlaceLocationController::class, 'updat
 Route::get('/places/{place}/logo/edit', [PlaceLogoController::class, 'edit'])->name('places.logo.edit');
 Route::patch('/places/{place}/logo', [PlaceLogoController::class, 'update'])->name('places.logo.update');
 
-Route::resource('places.photos', PlacePhotosController::class)->only('create', 'store');
+Route::post('/api/places/{place}/photos', [PlacePhotosController::class, 'store'])->name('places.photos.store');
 Route::patch('/api/places/{place}/photos', [PlacePhotosController::class, 'update'])->name('places.photos.update');
 Route::get('/places/{place}/photos/edit', [PlacePhotosController::class, 'edit'])->name('places.photos.edit');
 

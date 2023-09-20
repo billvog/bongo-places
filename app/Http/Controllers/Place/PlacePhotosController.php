@@ -6,13 +6,14 @@ use App\Enums\Place\PlaceStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Place\UpdatePlacePhotosRequest;
+use App\Http\Resources\PlacePhotosResource;
 use App\Models\Place\Place;
 use App\Models\Place\PlacePhotos;
 use App\Models\TemporaryFile;
 
 class PlacePhotosController extends Controller {
-	public function create(Place $place) {
-		return view('places.photos.create', [
+	public function edit(Place $place) {
+		return view('places.photos.edit', [
 			'place' => $place
 		]);
 	}
@@ -49,13 +50,11 @@ class PlacePhotosController extends Controller {
 		// Remove temporary files.
 		TemporaryFile::destroy($files);
 
-		return redirect()->action([PlacePhotosController::class, 'edit'], ['place' => $place]);
-	}
+		// Fetch all photos for place, including those
+		// which where just uploaded.
+		$placePhotos = PlacePhotos::query()->where(['place_id' => $place->id])->first();
 
-	public function edit(Place $place) {
-		return view('places.photos.edit', [
-			'place' => $place
-		]);
+		return new PlacePhotosResource($placePhotos);
 	}
 
 	public function update(UpdatePlacePhotosRequest $request, Place $place) {
