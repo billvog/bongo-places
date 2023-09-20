@@ -1,4 +1,5 @@
 import "./bootstrap";
+import "./elements";
 
 import { createApp } from "vue/dist/vue.esm-bundler";
 import EditPhotosComponent from "./components/EditPhotosComponent.vue";
