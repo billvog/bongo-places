@@ -67,8 +67,16 @@
         return file.serverId
       });
 
+      // Check if user has selected any files.
       if (fileIds.length <= 0) {
         console.error('Please select files first.');
+        return;
+      }
+
+      // Check if Filepond is ready, meaning that all files 
+      // are uploaded and ready to be submitted.
+      if (filepond.status !== Filepond.Status.READY) {
+        console.error('Please wait until all files are uploaded.');
         return;
       }
 
