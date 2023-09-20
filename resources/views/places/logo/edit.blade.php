@@ -18,7 +18,8 @@
   </div>
 
   <div class="text-sm">
-    <b>NOTE:</b> To make your place publish (hence visiable to others) you need to
+    <b>NOTE:</b> To make your place published (hence visiable to others) you need
+    to
     upload a logo.
   </div>
 
