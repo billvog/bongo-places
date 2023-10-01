@@ -26,10 +26,6 @@ class User extends Authenticatable {
 		'email',
 		'password',
 		'avatar_url',
-		// Google OAuth
-		'google_id',
-		'google_token',
-		'google_refresh_token',
 	];
 
 	/**
