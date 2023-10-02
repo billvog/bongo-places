@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Place;
-use App\Models\PlacePhotos;
+use App\Models\Place\Place;
+use App\Models\Place\PlacePhotos;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration {

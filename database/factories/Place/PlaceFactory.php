@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Place;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Place>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Place\Place>
  */
 class PlaceFactory extends Factory {
 	/**

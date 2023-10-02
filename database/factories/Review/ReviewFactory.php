@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Review;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review\Review>
  */
 class ReviewFactory extends Factory
 {
@@ -17,7 +17,8 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'review_text' => fake()->text(),
+            'rating' => fake()->randomFloat(1, 2, 5),
         ];
     }
 }
