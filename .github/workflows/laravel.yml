@@ -15,6 +15,7 @@ jobs:
       mysql:
         image: 'mysql/mysql-server:8.0'
         env:
+          MYSQL_ROOT_HOST: '%'
           MYSQL_DATABASE: laravel_test
           MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         ports:
